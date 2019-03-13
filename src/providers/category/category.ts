@@ -13,7 +13,7 @@ export class CategoryProvider {
   public getAll() {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'SlELECT * FROM categories';
+        let sql = 'SELECT * FROM categories';
 
         return db.executeSql(sql, [])
           .then((data: any) => {

@@ -47,9 +47,9 @@ export class DatabaseProvider {
           
           // Criando as tabelas
           db.sqlBatch([
-            ['insert into categorias (name values (?)', ['Hambúrgueres']],
-            ['insert into categorias (name values (?)', ['Bebidas']],
-            ['insert into categorias (name values (?)', ['Sobremesas']],
+            ['insert into categories (name) values (?)', ['Hambúrgueres']],
+            ['insert into categories (name) values (?)', ['Bebidas']],
+            ['insert into categories (name) values (?)', ['Sobremesas']],
           ])
             .then((s) => console.log('DADOS INCLUIDOS', JSON.stringify(s)))
             .catch(e => console.log('ERROR INCLUIR DADOS', JSON.stringify(e)))

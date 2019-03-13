@@ -1,10 +1,8 @@
 import { Product } from './../../providers/product/product';
 import { Component } from '@angular/core';
 
-import { SQLite, SQLiteObject, SQLiteDatabaseConfig } from '@ionic-native/sqlite';
 import { NavController, ToastController } from 'ionic-angular';
 import { ProductProvider } from '../../providers/product/product';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'page-home',
@@ -47,8 +45,7 @@ export class HomePage {
       .then(() => {
         // Removendo do array de produtos
         var index = this.products.indexOf(product);
-
-        this.products.slice(index, 1);
+        this.products.splice(index, 1);
         this.toastPresent('Produto removido')
       })
   }
@@ -57,7 +54,7 @@ export class HomePage {
     this.toast.create({
       message: message,
       duration: duration ? duration : 3000,
-      position: position ? position : 'botton'
+      position: position ? position : 'top'
      }).present()
   }
 

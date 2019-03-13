@@ -14,9 +14,11 @@ export class ProductProvider {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
         let sql = 'insert into products (name, price, duedate, active, category_id) values (?, ?, ?, ?, ?)';
-        let data = [product.name, product.price, product.duedata, product.active ? 1 : 0, product.category_id];
+        let data = [product.name, product.price, product.duedate, product.active ? 1 : 0, product.category_id];
 
         return db.executeSql(sql, data)
+          .then((data: any) => {
+          })
           .catch((e) => console.error(JSON.stringify(e)))
 
       })
@@ -27,7 +29,7 @@ export class ProductProvider {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
         let sql = 'update products set name = ?, price = ?, duedate = ?, active = ?, category_id = ? where id = ?';
-        let data = [product.name, product.price, product.duedata, product.active ? 1 : 0, product.category_id, product.id];
+        let data = [product.name, product.price, product.duedate, product.active ? 1 : 0, product.category_id, product.id];
 
         return db.executeSql(sql, data)
           .catch((e) => console.error(JSON.stringify(e)))
@@ -43,6 +45,7 @@ export class ProductProvider {
         let data = [id];
 
         return db.executeSql(sql, data)
+          .then((s) => console.log('DELETOUU', JSON.stringify(s)))
           .catch((e) => console.error(JSON.stringify(e)))
 
       })
@@ -64,7 +67,7 @@ export class ProductProvider {
               product.id          = item.id;
               product.name        = item.name;
               product.price       = item.price;
-              product.duedata     = item.duedata;
+              product.duedate     = item.duedate;
               product.active      = item.active;
               product.category_id = item.category_id;
 
@@ -83,13 +86,11 @@ export class ProductProvider {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
         let sql = 'SELECT p.*, c.name as category_name FROM products p inner join categories c on p.category_id = c.id where p.active = ?';
-        let data: any = [active ? 1 : 0];
+        var data: any[] = [active ? 1 : 0];
 
         if (name) {
-          sql += ' and p.name like ?';
-          data.push('%' + name + '%')
-        } else {
-
+          sql += ' and p.name like ?'
+          data.push('%' + name + '%');
         }
 
         return db.executeSql(sql, data)
@@ -97,9 +98,9 @@ export class ProductProvider {
             if (data.rows.length > 0) {
               let products: any[] = [];
 
-              for (let i = 0; i < data.rows.length; i++) {
+              for (var i = 0; i < data.rows.length; i++) {
                 var product = data.rows.item(i);
-                products.push(product)
+                products.push(product);
               }
 
               return products;
@@ -107,11 +108,11 @@ export class ProductProvider {
               return [];
             }
           })
-          .catch((e) => console.error(JSON.stringify(e)))
-
+          .catch((e) => console.error(e));
       })
-      .catch((e) => console.error(JSON.stringify(e)))
+      .catch((e) => console.error(e));
   }
+
 
 }
 
@@ -119,7 +120,7 @@ export class Product {
   id          : number;
   name        : string;
   price       : number;
-  duedata     : Date;
+  duedate     : Date;
   active      : boolean;
   category_id : number;
 }

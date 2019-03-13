@@ -32,7 +32,7 @@ import { CategoryProvider } from '../providers/category/category';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     SQLite,
     DatabaseProvider,
     ProductProvider,

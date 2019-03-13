@@ -62,7 +62,7 @@ export class EditProductPage {
     this.toast.create({
       message: message,
       duration: duration ? duration : 3000,
-      position: position ? position : 'botton'
+      position: position ? position : 'top'
     }).present()
   }
 
