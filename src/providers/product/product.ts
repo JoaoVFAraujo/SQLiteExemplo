@@ -88,6 +88,7 @@ export class ProductProvider {
         let sql = 'SELECT p.*, c.name as category_name FROM products p inner join categories c on p.category_id = c.id where p.active = ?';
         var data: any[] = [active ? 1 : 0];
 
+        // filtrando pelo nome
         if (name) {
           sql += ' and p.name like ?'
           data.push('%' + name + '%');

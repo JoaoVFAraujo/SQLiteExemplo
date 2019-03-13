@@ -23,14 +23,18 @@ export class DatabaseProvider {
   public createDB() {
     return this.getDB()
       .then((db: SQLiteObject) => {
+
+        // Criando as tabelas
         this.createTables(db);
 
+        // Inserindo dados padrão
         this.insertDefaultItems(db);
       })
       .catch(e => console.log('ERROR CREATE DB', JSON.stringify(e)))
   }
 
   private createTables(db: SQLiteObject) {
+    // Criando as tabelas
     db.sqlBatch([
       ['CREATE TABLE IF NOT EXISTS categories (id integer primary key AUTOINCREMENT NOT NULL, name TEXT)'],
       ['CREATE TABLE IF NOT EXISTS products (id integer primary key AUTOINCREMENT NOT NULL, name TEXT, price REAL, duedate DATE, active integer, category_id integer, FOREIGN KEY(category_id) REFERENCES categories(id))']

@@ -28,8 +28,11 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
+      //Criando o banco de dados
+
       dbProvider.createDB()
         .then(() => {
+          
           this.openHomePage(splashScreen)
         })
         .catch(() => {
